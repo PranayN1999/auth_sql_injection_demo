@@ -10,6 +10,8 @@ def bad_login(request):
         username = request.POST.get("username", "")
         password = request.POST.get("password", "")
 
+        #### SQL Injection Vulnerable query
+
         sql = (
             f"SELECT id, username "
             f"FROM users_plainuser "           # ← table from the new model
@@ -22,7 +24,11 @@ def bad_login(request):
             cur.execute(sql)
             row = cur.fetchone()
 
-        
+
+
+        #### Parameterized Queries
+        ## To prevent SQL Injection
+
         # sql = """
         #     SELECT id, username
         #     FROM users_plainuser

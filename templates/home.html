@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+
+  {#  --- your existing banner logic --- #}
+  {% if has_org %}
+      <h2>Login successful!</h2>
+      <p>Your organisation: <strong>{{ org_name }}</strong></p>
+  {% else %}
+      <h2>Your account is awaiting organisation assignment</h2>
+  {% endif %}
+
+  {#  ---- LOGOUT BUTTON (visible only to authenticated users) ---- #}
+  {% if user.is_authenticated %}
+      <form action="{% url 'logout' %}" method="post" style="margin-top:2rem;">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger">Logout</button>
+      </form>
+  {% endif %}
+
+{% endblock %}

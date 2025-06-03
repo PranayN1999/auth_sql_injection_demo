@@ -17,9 +17,22 @@ def bad_login(request):
             f"AND password = '{password}' "
             f"LIMIT 1;"
         )
+
         with connection.cursor() as cur:
             cur.execute(sql)
             row = cur.fetchone()
+
+        
+        # sql = """
+        #     SELECT id, username
+        #     FROM users_plainuser
+        #     WHERE username = %s           -- placeholders!
+        #       AND password = %s
+        #     LIMIT 1;
+        # """
+        # with connection.cursor() as cur:
+        #     cur.execute(sql, [username, password])   # 🎯 bound parameters
+        #     row = cur.fetchone()
 
         if row:
             return HttpResponse(f"✅ Logged in as {row[1]} (id={row[0]})")
